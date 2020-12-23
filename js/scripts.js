@@ -42,7 +42,7 @@ function createCard(data) {
     createModal(userArray[i]);
 
     const cardContainer = document.querySelector('.card')
-    cardContainer.addEventListener('click' () => {
+    cardContainer.addEventListener('click', () => {
         createModal(userArray[i]);
     });
 }
