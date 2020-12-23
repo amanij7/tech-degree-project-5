@@ -12,11 +12,12 @@ fetch(userUrl)
     const users = data.results;//this is the object from the url that contains the data needed
     //callback the card and modal function for each user
     for (i = 0; i < users.length; i++) {
+        userArray.push(...data.results);
+        createCard(users[i]);
+        createModal(users[i]);
         console.log(users[i]);
-        createCard(users[i])
-        createModal(users[i])
     }
-    searchBar();
+    
 });
 
 
@@ -38,6 +39,12 @@ function createCard(data) {
     </div>`;
 
     gallery.insertAdjacentHTML('beforeend', card);
+    createModal(userArray[i]);
+
+    const cardContainer = document.querySelector('.card')
+    cardContainer.addEventListener('click' () => {
+        createModal(userArray[i]);
+    });
 }
 
 
@@ -49,16 +56,23 @@ function createModal(data) {
             <div class="modal-info-container">
                 <img class="modal-img" src=${data.picture.large} alt="profile picture">
                 <h3 id="name" class="modal-name cap">${data.name.first} ${data.name.last}</h3>
-                <p class="modal-text">${data.name.email}</p>
-                <p class="modal-text cap">${data.name.city}</p>
+                <p class="modal-text">${data.email}</p>
+                <p class="modal-text cap">${data.location.city}</p>
                 <hr>
-                <p class="modal-text">${data.name.phone}</p>
-                <p class="modal-text">${data.name.location}</p>
-                <p class="modal-text">Birthday: ${data.name.dob}</p>
+                <p class="modal-text">${data.phone}</p>
+                <p class="modal-text">${data.location.street.number} ${data.location.street.name} ${data.location.city}, ${data.location.state} ${data.location.postcode}</p>
+                <p class="modal-text">Birthday: ${data.dob.date.slice(5, 7)}/${data.dob.date.slice(8, 10)}/${data.dob.date.slice(2, 4)}</p>
             </div>
         </div>`;
-
+   
     modalDiv.insertAdjacentHTML('beforeend', modal);
+    modalDiv.getElementsByClassName.display = "none";
+
+    const button = document.querySelector('.modal-close-btn');
+    button.addEventListener('click', () => {
+        modalDiv.remove();
+    });
+
 }
 
 
