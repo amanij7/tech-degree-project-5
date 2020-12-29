@@ -17,7 +17,7 @@ fetch(userUrl)
         createModal(users[i]);
         console.log(users[i]);
     }
-    searchBar();
+    //searchBar();
 });
 
 
@@ -68,31 +68,17 @@ function createModal(data) {
     modalDiv.insertAdjacentHTML('beforeend', modal);
     modalDiv.getElementsByClassName.display = "none";
 
+    modalEventListener();
+
+}
+
+function modalEventListener () {
     const button = document.querySelector('.modal-close-btn');
     button.addEventListener('click', () => {
         modalDiv.remove();
     });
-
 }
+    
 
 
-//SEARCH BAR FUNCTION
-
-function searchBar() {
-    const searchInput = document.querySelector('.search-input');
-    searchInput.addEventListener('keyup', (e) => {
-        const key = e.target.value;
-        const keyValue = key.toLowerCase();
-
-        for (let i = 0; i < userArray.length; i++) {
-            if (userArray[i].textContent.includes(keyValue)) {
-                userArray[i].style.display = '';
-            } else {
-                userArray[i].style.display = 'none';
-            }
-        }
-
-    });
-
-}
 
