@@ -39,11 +39,11 @@ function createCard(data) {
     </div>`;
 
     gallery.insertAdjacentHTML('beforeend', card);
-    createModal(userArray[i]);
+    //createModal(userArray[i]);
 
     const cardContainer = document.querySelector('.card')
     cardContainer.addEventListener('click', () => {
-        createModal(userArray[i]);
+        createModal(userArray);
     });
 }
 
@@ -72,7 +72,7 @@ function createModal(data) {
 
 }
 
-function modalEventListener () {
+function modalEventListener (data) {
     const button = document.querySelector('.modal-close-btn');
     button.addEventListener('click', () => {
         modalDiv.remove();
