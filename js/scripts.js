@@ -15,9 +15,9 @@ fetch(userUrl)
         userArray.push(...data.results);
         createCard(users[i]);
         createModal(users[i]);
-        console.log(users[i]);
+        console.log(users);
     }
-    //searchBar();
+    
 });
 
 
@@ -39,11 +39,11 @@ function createCard(data) {
     </div>`;
 
     gallery.insertAdjacentHTML('beforeend', card);
-    //createModal(userArray[i]);
+    
 
-    const cardContainer = document.querySelector('.card')
-    cardContainer.addEventListener('click', () => {
-        createModal(userArray);
+    gallery.addEventListener('click', () => {
+        createModal(userArray[i]);
+        modalDiv.style.display = '';
     });
 }
 
@@ -66,18 +66,18 @@ function createModal(data) {
         </div>`;
    
     modalDiv.insertAdjacentHTML('beforeend', modal);
-    modalDiv.getElementsByClassName.display = "none";
+    modalDiv.style.display = "none";
 
-    modalEventListener();
 
-}
-
-function modalEventListener (data) {
     const button = document.querySelector('.modal-close-btn');
     button.addEventListener('click', () => {
-        modalDiv.remove();
+        modalDiv.style.display = 'none';
     });
+
 }
+
+
+
     
 
 
