@@ -1,6 +1,6 @@
 const userUrl = "https://randomuser.me/api/?results=12&nat=us";
 const gallery = document.querySelector('#gallery');
-const cardClass = document.querySelectorAll('.card');
+const cards = document.querySelectorAll('.card');
 const modalDiv = document.querySelector('.modal-container');
 let userArray = [];
 
@@ -14,9 +14,9 @@ fetch(userUrl)
     //callback the card and modal function for each user
     for (i = 0; i < users.length; i++) {
         userArray.push(...data.results);
-        createCard(users[i]);
+        createCard(users[i], i);
         createModal(users[i]);
-        console.log(users[i]);
+        //console.log(users[i]);
     }
     
 });
@@ -25,7 +25,7 @@ fetch(userUrl)
 
 //GENERATE CARD FUNCTION
 
-function createCard(data) {
+function createCard(data, index) {
     const card = ` <div class="card">
         <div class="card-img-container">
             <img class="card-img" src=${data.picture.medium} alt="profile picture">
@@ -41,14 +41,15 @@ function createCard(data) {
 
     gallery.insertAdjacentHTML('beforeend', card);
     
-
-    gallery.addEventListener('click', (e) => {
-        const cardIndex = cardClass.indexOf(e.target);
-        for(i = 0; i < cardIndex.lenght; i++){
-            //createModal(userArray[i]);
-            modalDiv.style.display = '';
-        } 
+    
+    cards.addEventListener('click', e => {
+        const modals = document.querySelectorAll('.modal');
+        console.log(modals[index]);
     });
+    // gallery.addEventListener('click', () => {
+    //             //createModal(userArray[i]);
+    //         modalDiv.style.display = '';     
+    // });
 }
 
 
