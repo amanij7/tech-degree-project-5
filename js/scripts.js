@@ -2,6 +2,7 @@ const userUrl = "https://randomuser.me/api/?results=12&nat=us";
 const gallery = document.querySelector('#gallery');
 const cards = document.querySelectorAll('.card');
 const modalDiv = document.querySelector('.modal-container');
+const modalInfo = document.querySelector('.modal-info-container');
 let userArray = [];
 
 
@@ -41,15 +42,12 @@ function createCard(data, index) {
 
     gallery.insertAdjacentHTML('beforeend', card);
     
-    
-    cards.addEventListener('click', e => {
+    const cards = document.querySelectorAll('.card');
+    cards[index].addEventListener('click', e => {
         const modals = document.querySelectorAll('.modal');
         console.log(modals[index]);
+        modals[index].style.display = '';
     });
-    // gallery.addEventListener('click', () => {
-    //             //createModal(userArray[i]);
-    //         modalDiv.style.display = '';     
-    // });
 }
 
 
