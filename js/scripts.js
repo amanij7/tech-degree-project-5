@@ -1,8 +1,8 @@
 const userUrl = "https://randomuser.me/api/?results=12&nat=us";
 const gallery = document.querySelector('#gallery');
 const cards = document.querySelectorAll('.card');
-const modalDiv = document.querySelector('.modal-container');
 const modalInfo = document.querySelector('.modal-info-container');
+const modals = document.querySelectorAll('.modal');
 let userArray = [];
 
 
@@ -32,7 +32,7 @@ function createCard(data, index) {
             <img class="card-img" src=${data.picture.medium} alt="profile picture">
         </div>
         <div class="card-info-container">
-            <h3 id="name" class="card-name cap">${data.name.first} ${data.name.last} last</h3>
+            <h3 id="name" class="card-name cap">${data.name.first} ${data.name.last}</h3>
             <p class="card-text">${data.email}</p>
             <p class="card-text cap">${data.location.city}, ${data.location.state}</p>
         </div>
@@ -54,7 +54,8 @@ function createCard(data, index) {
 //GENERATE MODAL FUNCTION
 
 function createModal(data) {
-    const modal = `<div class="modal">
+    const modal = `<div class="modal-container">
+    <div class="modal">
             <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
             <div class="modal-info-container">
                 <img class="modal-img" src=${data.picture.large} alt="profile picture">
@@ -68,6 +69,7 @@ function createModal(data) {
             </div>
         </div>`;
    
+    const modalDiv = document.querySelector('.modal-container');
     modalDiv.insertAdjacentHTML('beforeend', modal);
     modalDiv.style.display = "none";
 
