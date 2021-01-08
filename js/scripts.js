@@ -1,8 +1,7 @@
 const userUrl = "https://randomuser.me/api/?results=12&nat=us";
 const gallery = document.querySelector('#gallery');
-const cards = document.querySelectorAll('.card');
-const modalInfo = document.querySelector('.modal-info-container');
-const modals = document.querySelectorAll('.modal');
+//const modals = document.querySelectorAll('.modal');
+const modalContainer = document.querySelector('.modal-container');
 let userArray = [];
 
 
@@ -13,11 +12,11 @@ fetch(userUrl)
 .then(data => {
     const users = data.results;//this is the object from the url that contains the data needed
     //callback the card and modal function for each user
+    userArray.push(...users);
+    //console.log(userArray)
     for (i = 0; i < users.length; i++) {
-        userArray.push(...data.results);
-        createCard(users[i], i);
-        createModal(users[i]);
-        //console.log(users[i]);
+        createCard(userArray[i], i);    
+        createModal(userArray[i]); 
     }
     
 });
@@ -43,10 +42,10 @@ function createCard(data, index) {
     gallery.insertAdjacentHTML('beforeend', card);
     
     const cards = document.querySelectorAll('.card');
-    cards[index].addEventListener('click', e => {
-        const modals = document.querySelectorAll('.modal');
-        console.log(modals[index]);
-        modals[index].style.display = '';
+    cards[index].addEventListener('click', e => { 
+        let modalArray = document.querySelectorAll('.modal');
+        modalArray[index].style.display = '';
+        modalContainer.style.display = '';
     });
 }
 
@@ -54,8 +53,9 @@ function createCard(data, index) {
 //GENERATE MODAL FUNCTION
 
 function createModal(data) {
-    const modal = `<div class="modal-container">
-    <div class="modal">
+
+    const modal = `<div class="modal-container" style="display: none">
+    <div class="modal" style="display: none"> 
             <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
             <div class="modal-info-container">
                 <img class="modal-img" src=${data.picture.large} alt="profile picture">
@@ -67,16 +67,16 @@ function createModal(data) {
                 <p class="modal-text">${data.location.street.number} ${data.location.street.name} ${data.location.city}, ${data.location.state} ${data.location.postcode}</p>
                 <p class="modal-text">Birthday: ${data.dob.date.slice(5, 7)}/${data.dob.date.slice(8, 10)}/${data.dob.date.slice(2, 4)}</p>
             </div>
+            </div>
         </div>`;
    
-    const modalDiv = document.querySelector('.modal-container');
-    modalDiv.insertAdjacentHTML('beforeend', modal);
-    modalDiv.style.display = "none";
+    
+      gallery.insertAdjacentHTML('beforeend', modal);
 
 
     const button = document.querySelector('.modal-close-btn');
     button.addEventListener('click', () => {
-        modalDiv.style.display = 'none';
+        modalContainer.style.display = 'none';
     });
 
 }
