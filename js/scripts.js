@@ -1,8 +1,15 @@
 const userUrl = "https://randomuser.me/api/?results=12&nat=us";
 const gallery = document.querySelector('#gallery');
 //const modals = document.querySelectorAll('.modal');
+
+const modalDiv = document.createElement('div');
+    modalDiv.className = "modal-container";
+    modalDiv.style.display = "none";
+    document.body.append(modalDiv);
+
 const modalContainer = document.querySelector('.modal-container');
 let userArray = [];
+
 
 
 // FETCH FUNCTION
@@ -45,7 +52,8 @@ function createCard(data, index) {
     cards[index].addEventListener('click', e => { 
         let modalArray = document.querySelectorAll('.modal');
         modalArray[index].style.display = '';
-        modalContainer.style.display = '';
+        modalContainer.style.display = ''
+        //console.log(modalArray[index]);
     });
 }
 
@@ -54,8 +62,8 @@ function createCard(data, index) {
 
 function createModal(data) {
 
-    const modal = `<div class="modal-container" style="display: none">
-    <div class="modal" style="display: none"> 
+    const modal = `
+    <div class="modal" > 
             <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
             <div class="modal-info-container">
                 <img class="modal-img" src=${data.picture.large} alt="profile picture">
@@ -70,15 +78,18 @@ function createModal(data) {
             </div>
         </div>`;
    
-    
-      gallery.insertAdjacentHTML('beforeend', modal);
+    modalContainer.style.display = "none";
+    modalContainer.insertAdjacentHTML('beforeend', modal);
+
+    const myModal = modalContainer.lastElementChild;
+    myModal.style.display = "none";
 
 
     const button = document.querySelector('.modal-close-btn');
+  
     button.addEventListener('click', () => {
         modalContainer.style.display = 'none';
     });
-
 }
 
 
