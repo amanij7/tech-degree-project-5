@@ -8,7 +8,6 @@ const modalDiv = document.createElement('div');
     document.body.append(modalDiv);
 
 const modalContainer = document.querySelector('.modal-container');
-let userArray = [];
 
 
 
@@ -19,15 +18,13 @@ fetch(userUrl)
 .then(data => {
     const users = data.results;//this is the object from the url that contains the data needed
     //callback the card and modal function for each user
-    userArray.push(...users);
-    //console.log(userArray)
     for (i = 0; i < users.length; i++) {
-        createCard(userArray[i], i);    
-        createModal(userArray[i]); 
-    }
-    
-});
+        createCard(users[i], i);    
+        createModal(users[i]); 
+    }   
 
+})
+.catch(error => console.log("Sorry. Something went wrong."));
 
 
 //GENERATE CARD FUNCTION
@@ -52,7 +49,7 @@ function createCard(data, index) {
     cards[index].addEventListener('click', e => { 
         let modalArray = document.querySelectorAll('.modal');
         modalArray[index].style.display = '';
-        modalContainer.style.display = ''
+        modalContainer.style.display = '';
         //console.log(modalArray[index]);
     });
 }
@@ -78,16 +75,18 @@ function createModal(data) {
             </div>
         </div>`;
    
-    modalContainer.style.display = "none";
+    
     modalContainer.insertAdjacentHTML('beforeend', modal);
-
+    //contains the new created modal
     const myModal = modalContainer.lastElementChild;
+    //hide the new modal
     myModal.style.display = "none";
 
 
-    const button = document.querySelector('.modal-close-btn');
+    const button = myModal.querySelector('.modal-close-btn');
   
     button.addEventListener('click', () => {
+        myModal.style.display = 'none';
         modalContainer.style.display = 'none';
     });
 }
