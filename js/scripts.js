@@ -1,7 +1,7 @@
 const userUrl = "https://randomuser.me/api/?results=12&nat=us";
 const gallery = document.querySelector('#gallery');
-//const modals = document.querySelectorAll('.modal');
 
+//I decided to create a div for the modal and isolate this particular element so I can be able to attatch this div element to the body tag
 const modalDiv = document.createElement('div');
     modalDiv.className = "modal-container";
     modalDiv.style.display = "none";
@@ -17,19 +17,20 @@ fetch(userUrl)
 .then(res => res.json()) //returns in JSON format
 .then(data => {
     const users = data.results;//this is the object from the url that contains the data needed
-    //callback the card and modal function for each user
+    //iterating over each user and calling the card and modal function for each iteration
     for (i = 0; i < users.length; i++) {
         createCard(users[i], i);    
         createModal(users[i]); 
     }   
 
 })
-.catch(error => console.log("Sorry. Something went wrong."));
+.catch(error => console.log("Sorry. Something went wrong.")); //this catch phrase will log an error message of something is wrong with the api
 
 
 //GENERATE CARD FUNCTION
 
 function createCard(data, index) {
+    //card snippet
     const card = ` <div class="card">
         <div class="card-img-container">
             <img class="card-img" src=${data.picture.medium} alt="profile picture">
@@ -42,15 +43,15 @@ function createCard(data, index) {
     </div>
             
     </div>`;
-
+    //attatching the card to the gallery
     gallery.insertAdjacentHTML('beforeend', card);
     
+    //selecting every card class and adding a click listener that will display the modal that matches the index of the card that is clicked
     const cards = document.querySelectorAll('.card');
     cards[index].addEventListener('click', e => { 
         let modalArray = document.querySelectorAll('.modal');
         modalArray[index].style.display = '';
         modalContainer.style.display = '';
-        //console.log(modalArray[index]);
     });
 }
 
@@ -58,7 +59,7 @@ function createCard(data, index) {
 //GENERATE MODAL FUNCTION
 
 function createModal(data) {
-
+    //modal snippet
     const modal = `
     <div class="modal" > 
             <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
@@ -75,16 +76,16 @@ function createModal(data) {
             </div>
         </div>`;
    
-    
+    //attatching the modal code to the modalContainer variable created at the begining of the file
     modalContainer.insertAdjacentHTML('beforeend', modal);
     //contains the new created modal
     const myModal = modalContainer.lastElementChild;
     //hide the new modal
     myModal.style.display = "none";
 
-
+    //selecting the close button in each modal
     const button = myModal.querySelector('.modal-close-btn');
-  
+    //adding a click listener to hide the modal
     button.addEventListener('click', () => {
         myModal.style.display = 'none';
         modalContainer.style.display = 'none';
